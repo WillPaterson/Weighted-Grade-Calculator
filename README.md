@@ -1,8 +1,8 @@
-# README
+# Weighted Grade Calculator
 
 ## About
 
-This is the official Wails Svelte-TS template.
+This is a simple weighted grade calculator. Built using Svelte and Wails. 
 
 ## Live Development
 
