@@ -1,0 +1,17 @@
+/* input style. Rounded border, centered text, gray background, white text, small amount of padding, not sunken, text size normal  */
+@mixin inputStyle {
+    border-radius: 5px;
+    text-align: center;
+    background-color: #383b3c;
+    color: white;
+    padding: 5px;
+    border: none;
+    font-size: 1rem;
+    margin: 0.5rem;
+    width: 100%;
+}
+
+@mixin fakeInput {
+    @include inputStyle;
+    width: 4rem;
+}
