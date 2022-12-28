@@ -34,36 +34,15 @@
 <div class="modal-background" on:click={close} on:keydown={handle_keydown}></div>
 
 <div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
+	<!-- <span class="closeButtonPlacement"><button class="close" on:click={close}>X</button></span> -->
 	<slot name="header"></slot>
 	<hr>
-	<slot></slot>
+	<slot name="body"></slot>
 	<hr>
-
-	<!-- svelte-ignore a11y-autofocus -->
-    <div class="modalButtons">
-        <button class="close" autofocus on:click={close}>close modal</button>
-    </div>
-	
+	<slot name="footer"></slot>
 </div>
 
 <style lang="scss">
-	// Use button style
-    @use "../../style/button";
-
-	.close {
-		@include button.buttonStyle;
-    }
-
-    /* Add grade button hover sink in */
-    .close:hover {
-        @include button.buttonHover;
-    }
-
-    /* Add grade button onclick   */
-    .close:active {
-        @include button.buttonActive;
-    }
-
 	.modal-background {
 		position: fixed;
 		top: 0;
@@ -76,20 +55,14 @@
 	.modal {
 		position: absolute;
 		left: 50%;
-		top: 50%;
+		top: 35%;
 		width: calc(100vw - 4em);
 		max-width: 32em;
 		max-height: calc(100vh - 4em);
 		overflow: auto;
 		transform: translate(-50%,-50%);
 		padding: 1em;
-		border-radius: 0.2em;
-        background-color: #383a3c;
+		border-radius: 1em;
+        background-color: #383a3c
 	}
-
-    .modalButtons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 </style>

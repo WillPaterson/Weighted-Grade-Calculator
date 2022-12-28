@@ -1,18 +1,28 @@
-@mixin buttonStyle {
+@mixin buttonStyleTemplate($background-color: #7e0a14) {
     padding: 1rem;
-    background-color: #7e0a14;
+    background-color: $background-color;
     border-radius: 5px;
     border: none;
     color: #bdbab4;
     font-weight: 600;
     font-size: 0.9rem;
+    
+}
+
+@mixin buttonStyle {
+    @include buttonStyleTemplate;
     width: 70%;
 }
 
+@mixin buttonStyleSmall($background-color: #7e0a14) {
+    @include buttonStyleTemplate($background-color: $background-color);
+    width: 30%;
+}
+
 /* Add grade button hover sink in */
-@mixin buttonHover{
+@mixin buttonHover ($background-color: #61030a){
     /* background-color gray */
-    background-color: #61030a;
+    background-color: $background-color;
     cursor: pointer;
 }
 

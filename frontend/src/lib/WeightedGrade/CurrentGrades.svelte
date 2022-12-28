@@ -1,25 +1,26 @@
 <script lang="ts">
     // Components
     import CurrentGrade from "./CurrentGrade.svelte";
-    import Modal from "./Modal.svelte";
     
     // Type
     import type { IGrade } from "../../types/grade";
+    import AddGrade from "./AddGrade.svelte";
     
 
-    let grades: IGrade[] = [
-        {id: 0, mark: 100, totalPossible: 100, weight: 10},
-        {id: 1, mark: 100, totalPossible: 100, weight: 10},
-        {id: 2, mark: 100, totalPossible: 100, weight: 10},
-        {id: 3, mark: 100, totalPossible: 100, weight: 10},
-        {id: 4, mark: 100, totalPossible: 100, weight: 10},
-    ];
+    let grades: IGrade[] = [];
 
     $: amountOfGrades = grades.length;
 
-	let showModal = false;
-
-
+    function addGrade(mark: number, totalPossible: number, weight: number) {
+        let newGrade: IGrade = {
+            id: grades.length,
+            mark: mark,
+            totalPossible: totalPossible,
+            weight: weight
+        }
+        
+        grades = [...grades, newGrade];
+    }
 </script>
 
 <h2>Current Grades</h2>
@@ -45,22 +46,7 @@
     </table>
 </div>
 
-<div class="addGrade">
-    <button class="addGradeButton" on:click="{() => showModal = true}">Add Grade</button>
-
-    {#if showModal}
-        <Modal on:close="{() => showModal = false}">
-            <h2 slot="header">
-                Add Grade
-            </h2>
-
-            <p>Grade</p>
-            <input type="number" placeholder="Grade" />
-            <p>Total Possible</p>
-            <input type="number" placeholder="Total Possible" />
-        </Modal>
-    {/if}
-</div>
+<AddGrade {addGrade}/>
 
 <style lang="scss">
     // Use sectionTitle style
@@ -69,22 +55,8 @@
     // Use common style
     @use "../../style/common";
 
-    // Use button style
-    @use "../../style/button";
-
-    .currentGrades, .addGrade  {
+    .currentGrades  {
         @include common.flexCenter;
-    }
-
-    .addGradeButton {
-        @include button.buttonStyle;
-    }
-
-    .addGradeButton:hover {
-        @include button.buttonHover;
-    }
-    .addGradeButton:active {
-        @include button.buttonActive;
     }
 
     /* Table style */

@@ -5,7 +5,7 @@
     import RequiredGrades from "./WeightedGrade/RequiredGrades.svelte";
 </script>
 
-<main>
+<main class="scrollable">
     <div class = "largeGrid">
         <section class="info">
             <Info />
@@ -31,6 +31,8 @@
         grid-template-columns: repeat(auto-fit, minmax(570px, 1fr));
         grid-gap: 0.5rem;
         font-family: 'Rubik', sans-serif;
+
+        overflow: hidden;
     }
 
     .largeGrid {

@@ -1,6 +1,6 @@
 export interface IGrade {
     id: number
-    mark: number
+    grade: number
     totalPossible: number
     weight:number
 }
