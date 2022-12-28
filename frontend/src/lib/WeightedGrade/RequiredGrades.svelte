@@ -6,23 +6,23 @@
 <p> Grades possible from the remaining weight </p>
 <div class="requiredGrades">
     <div class="gridFitTwoSmall">
-        <box>
+        <box class="boxPass">
             <div class="gradePassLabel">P</div>
             <div class="gradePass">???</div>
         </box>
         
-        <box>
+        <box class="boxCredit">
             <div class="gradeCreditLabel">C</div>
             <div class="gradeCredit">???</div>
         </box>
     </div>
     <div class="gridFitTwoSmall">
-        <box>
+        <box class="boxDistinction">
             <div class="gradeDistinctionLabel">D</div>
             <div class="gradeDistinction">???</div>
         </box>
 
-        <box>
+        <box class="boxHighDistinction">
             <div class="gradeHighDistinctionLabel">HD</div>
             <div class="gradeHighDistinction">???</div>
         </box>
@@ -33,15 +33,23 @@
     // Use sectionTitle style
     @use "../../style/sectionTitle";
 
-    // Use box style
-    @use "../../style/box";
-
     // Use input style
     @use "../../style/input";
 
-    /* input style. Rounded border, centered text, gray background, white text, small amount of padding, not sunken, text size normal  */
-    .gradePass, .gradeCredit, .gradeDistinction, .gradeHighDistinction {
-        @include input.fakeInput;
+    // Use common style
+    @use "../../style/common";
+
+    box {
+        @include common.box;
+    }
+
+    $colors: #790000, #803c00, #006800, #00497e;
+    $grades: Pass, Credit, Distinction, HighDistinction;
+    
+    @each $color, $grade in zip($colors, $grades) {
+        .grade#{$grade} {
+            @include input.fakeInput($color)
+        }
     }
 
     .requiredGrades, .gridFitTwoSmall {

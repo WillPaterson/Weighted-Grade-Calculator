@@ -11,10 +11,10 @@
 
     $: amountOfGrades = grades.length;
 
-    function addGrade(mark: number, totalPossible: number, weight: number) {
+    function addGrade(grade: number, totalPossible: number, weight: number) {
         let newGrade: IGrade = {
             id: grades.length,
-            mark: mark,
+            grade: grade,
             totalPossible: totalPossible,
             weight: weight
         }
@@ -34,9 +34,9 @@
         {:else}
             <tr>
                 <th></th>
-                <th>Mark</th>
+                <th>Grade Achieved</th>
                 <th>Total Possible</th>
-                <th>Mark Percentage</th>
+                <th>Grade Percentage</th>
                 <th>Weight</th>
             </tr>
             {#each grades as grade}

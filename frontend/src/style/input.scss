@@ -1,9 +1,9 @@
 /* input style. Rounded border, centered text, gray background, white text, small amount of padding, not sunken, text size normal  */
-@mixin inputStyle {
+@mixin inputStyle($background-color: #383b3c, $color: white) {
     border-radius: 5px;
     text-align: center;
-    background-color: #383b3c;
-    color: white;
+    background-color: $background-color;
+    color: $color;
     padding: 5px;
     border: none;
     font-size: 1rem;
@@ -11,8 +11,8 @@
     width: 100%;
 }
 
-@mixin fakeInput {
-    @include inputStyle;
+@mixin fakeInput($background-color: #383b3c, $color: white) {
+    @include inputStyle($background-color: $background-color, $color: $color);
     width: 4rem;
 }
 

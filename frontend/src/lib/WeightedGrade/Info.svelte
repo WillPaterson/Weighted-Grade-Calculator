@@ -21,11 +21,15 @@
     // Use sectionTitle style
     @use "../../style/sectionTitle";
 
-    // Use box style
-    @use "../../style/box";
-
     // Use input style
     @use "../../style/input";
+
+    // Use common style
+    @use "../../style/common";
+
+    box {
+        @include common.box;
+    }
 
     input {
         @include input.inputStyle;

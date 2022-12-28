@@ -36,8 +36,8 @@
                 <form on:submit|preventDefault={handleAddGrade}>
                     <div class="row">
                         <box>
-                            <label for="grade">Grade</label>
-                            <input type="number" placeholder="Grade" bind:value={grade} />
+                            <label for="grade">Grade Achieved</label>
+                            <input type="number" placeholder="Grade Achieved" bind:value={grade} />
                         </box>
                     </div>
                     
@@ -74,8 +74,9 @@
     // Use input style
     @use "../../style/input";
 
-    // Use box style
-    @use "../../style/box";
+    box {
+        @include common.box;
+    }
 
     .addGrade, input, label, .modalFooter {
         @include common.flexCenter;
