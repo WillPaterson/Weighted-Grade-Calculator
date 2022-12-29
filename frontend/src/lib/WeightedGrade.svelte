@@ -35,7 +35,7 @@
         </section>
     
         <section class="RequiredGrades">
-            <RequiredGrades />
+            <RequiredGrades {totalWeight} {finalWeightedGrade}/>
         </section>
     </div>
 

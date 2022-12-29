@@ -1,4 +1,5 @@
 <script>
+    // Props
     export let totalWeight;
     export let finalWeightedGrade;
 

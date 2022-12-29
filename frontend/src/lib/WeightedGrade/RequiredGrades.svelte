@@ -1,5 +1,34 @@
 <script lang="ts">
     // TODO calculate required grades
+    let requiredGradeLimits = {
+        Pass: 50,
+        Credit: 65,
+        Distinction: 75,
+        HighDistinction: 85
+    }
+
+    let requiredGrades = {
+        Pass: "???",
+        Credit: "???",
+        Distinction: "???",
+        HighDistinction: "???"
+    }
+
+    // Props
+    export let totalWeight;
+    export let finalWeightedGrade;
+
+    // Calcuate remaining weight
+    $: remainingWeight = 100 - totalWeight;
+
+    // Calculate required grades for each grade
+    $: {
+        for (let grade in requiredGrades) {
+            let requiredGrade = (requiredGradeLimits[grade] * 100 - (finalWeightedGrade) * totalWeight) / (remainingWeight)
+            // Round to 2 decimal places unless round number
+            requiredGrades[grade] = Math.round(requiredGrade * 100) / 100
+        }
+    }
 </script>
 
 <h2> Required Grades </h2>
@@ -8,23 +37,23 @@
     <div class="gridFitTwoSmall">
         <box class="boxPass">
             <div class="gradePassLabel">P</div>
-            <div class="gradePass">???</div>
+            <div class="gradePass"> {requiredGrades.Pass} </div>
         </box>
         
         <box class="boxCredit">
             <div class="gradeCreditLabel">C</div>
-            <div class="gradeCredit">???</div>
+            <div class="gradeCredit"> {requiredGrades.Credit} </div>
         </box>
     </div>
     <div class="gridFitTwoSmall">
         <box class="boxDistinction">
             <div class="gradeDistinctionLabel">D</div>
-            <div class="gradeDistinction">???</div>
+            <div class="gradeDistinction"> {requiredGrades.Distinction} </div>
         </box>
 
         <box class="boxHighDistinction">
             <div class="gradeHighDistinctionLabel">HD</div>
-            <div class="gradeHighDistinction">???</div>
+            <div class="gradeHighDistinction"> {requiredGrades.HighDistinction} </div>
         </box>
     </div>
 </div>

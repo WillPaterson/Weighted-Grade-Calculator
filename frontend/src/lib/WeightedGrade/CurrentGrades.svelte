@@ -5,7 +5,7 @@
     // Type
     import type { IGrade } from "../../types/grade";
 
-    // Data
+    // Props
     export let grades
     export let totalWeight
 
