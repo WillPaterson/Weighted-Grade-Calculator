@@ -3,8 +3,7 @@
     import Modal from "./Modal.svelte";
     let showModal = false;
 
-    let showError = false;
-    let errorMessage = "";
+    let errorMessages = []
 
     // Type
     type AddGrade = (grade: number, totalPossible: number, weight: number) => void;
@@ -15,26 +14,24 @@
     let totalPossible = 0;
     let weight = 0;
 
+    function resetErrors() {
+        errorMessages = [];
+    }
+
     function handleAddGrade() {
-        console.log("Add Grade");
-        console.log(grade);
-        console.log(totalPossible);
-        console.log(weight);
-        
-        showError = false;
+        resetErrors();
 
         if (totalPossible <= 0) {
-            showError = true;
-            errorMessage = "Total Possible must be greater than 0";
-            return;
-        } 
-        else if (weight <= 0) {
-            showError = true;
-            errorMessage = "Weight must be greater than 0";
-            return;
+            errorMessages.push("Total Possible must be greater than 0");
+        }
+        if (weight <= 0) {
+            errorMessages.push("Weight must be greater than 0");
         }
 
-        addGrade(grade, totalPossible, weight);
+        if (errorMessages.length <= 0) {
+            addGrade(grade, totalPossible, weight);
+        }
+
     }
 </script>
 
@@ -72,11 +69,13 @@
                     </div>
                 </form>
 
-                {#if showError}
-                    <box class="error">
-                        {errorMessage}
-                    </box>
-                {/if}
+                
+                {#each errorMessages as message}
+                    <div class="error">
+                        {message}
+                    </div>
+                {/each}
+            
             </div>
             
             
