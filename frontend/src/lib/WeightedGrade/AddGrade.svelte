@@ -7,6 +7,7 @@
 
     // Props
     export let addGrade: AddGrade;
+    export let calculateTotalWeight: () => number;
 
     // State
     let grade = 0;
@@ -25,6 +26,11 @@
 
     function handleAddGrade() {
         resetErrors();
+        
+        let totalWeight = calculateTotalWeight();
+
+        console.log("Total Weight: " + totalWeight);
+        
 
         if (totalPossible <= 0) {
             errorMessages.push("Total Possible must be greater than 0");
@@ -32,11 +38,18 @@
         if (weight <= 0) {
             errorMessages.push("Weight must be greater than 0");
         }
-
+        if (grade < 0) {
+            errorMessages.push("Grade Achieved must be greater than or equal to 0");
+        }
+        if (grade > totalPossible) {
+            errorMessages.push("Grade Achieved must be less than or equal to Total Possible");
+        }
+        if (calculateTotalWeight() + weight > 100) {
+            errorMessages.push("Total weight cannot be greater than 100");
+        }
         if (errorMessages.length <= 0) {
             addGrade(grade, totalPossible, weight);
         }
-
     }
 </script>
 

@@ -3,7 +3,7 @@
 </script>
 
 <h2> Required Grades </h2>
-<p> Grades possible from the remaining weight </p>
+<p> Minimum grade needed for desired scaled grade </p>  
 <div class="requiredGrades">
     <div class="gridFitTwoSmall">
         <box class="boxPass">

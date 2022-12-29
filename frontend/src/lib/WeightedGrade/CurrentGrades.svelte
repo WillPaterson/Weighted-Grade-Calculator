@@ -1,21 +1,37 @@
 <script lang="ts">
     // Components
-    import CurrentGrade from "./CurrentGrade.svelte";
-    
+    import AddGrade from "./AddGrade.svelte";
+
     // Type
     import type { IGrade } from "../../types/grade";
-    import AddGrade from "./AddGrade.svelte";
-    
 
-    let grades: IGrade[] = [];
+    // Data
+    export let grades
+    export let totalWeight
 
+    // Reactive
     $: amountOfGrades = grades.length;
+    $: grades, totalWeight = calculateTotalWeight();
+    function calculateTotalWeight() {
+        let totalWeight = 0;
+
+        grades.forEach(grade => {
+            totalWeight += grade.weight;
+        });
+
+        return totalWeight;
+    }
+
+    function calculateGradePercentage(grade: number, totalPossible: number) {
+        return Math.round((grade / totalPossible) * 10000) / 100;
+    }
 
     function addGrade(grade: number, totalPossible: number, weight: number) {
         let newGrade: IGrade = {
             id: grades.length,
             grade: grade,
             totalPossible: totalPossible,
+            percentage: calculateGradePercentage(grade, totalPossible),
             weight: weight
         }
         
@@ -40,13 +56,19 @@
                 <th>Weight</th>
             </tr>
             {#each grades as grade}
-                <CurrentGrade {grade} />
+                <tr>
+                    <td>{grade.id + 1}</td>
+                    <td>{grade.grade}</td>
+                    <td>{grade.totalPossible}</td>
+                    <td>{grade.percentage}%</td>
+                    <td>{grade.weight}</td>    
+                </tr>
             {/each}
         {/if}
     </table>
 </div>
 
-<AddGrade {addGrade}/>
+<AddGrade {addGrade} {calculateTotalWeight}/>
 
 <style lang="scss">
     // Use sectionTitle style
@@ -74,7 +96,7 @@
         text-align: center;
     }
 
-    th {
+    th, td {
         text-align: left;
         padding: 8px;
     }

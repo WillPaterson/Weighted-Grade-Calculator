@@ -1,3 +1,13 @@
+<script>
+    export let totalWeight;
+    export let finalWeightedGrade;
+
+    // Calcuate remaining weight
+    $: remainingWeight = 100 - totalWeight;
+
+    
+</script>
+
 <div class="container">
     <div class="labelContainer">
         <h2 class="overview"> Overview </h2>
@@ -11,8 +21,13 @@
         </box>
         
         <box>
+            <div class="finalGrade">Final Weighted Grade</div>
+            <div class="fakeInput"> {finalWeightedGrade}% </div>
+        </box>
+
+        <box>
             <div class="remainingWeight">Remaining Weight</div>
-            <div class="fakeInput">100%</div>
+            <div class="fakeInput"> {remainingWeight} </div>
         </box>
     </div>
 </div>
