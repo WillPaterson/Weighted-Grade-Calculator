@@ -1,18 +1,23 @@
 <script lang="ts">
     // Components
     import Modal from "./Modal.svelte";
-    let showModal = false;
-
-    let errorMessages = []
 
     // Type
     type AddGrade = (grade: number, totalPossible: number, weight: number) => void;
 
+    // Props
     export let addGrade: AddGrade;
 
+    // State
     let grade = 0;
     let totalPossible = 0;
     let weight = 0;
+
+    // Used to show the modal
+    let showModal = false;
+
+    // Used to store error messages
+    let errorMessages = []
 
     function resetErrors() {
         errorMessages = [];
