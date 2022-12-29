@@ -1,6 +1,8 @@
 <script lang="ts">
     // Components
     import AddGrade from "./AddGrade.svelte";
+    import Fa from 'svelte-fa'
+    import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
     // Type
     import type { IGrade } from "../../types/grade";
@@ -54,6 +56,7 @@
                 <th>Total Possible</th>
                 <th>Grade Percentage</th>
                 <th>Weight</th>
+                <th>Remove?</th>
             </tr>
             {#each grades as grade}
                 <tr>
@@ -61,7 +64,18 @@
                     <td>{grade.grade}</td>
                     <td>{grade.totalPossible}</td>
                     <td>{grade.percentage}%</td>
-                    <td>{grade.weight}</td>    
+                    <td>{grade.weight}</td>
+                    <!-- Remove button with svg cross -->
+                    
+                    <td>
+                        <div class="centerButton">
+                            <button class="close" on:click={() => grades = grades.filter(g => g.id !== grade.id)}>
+                                <div style="color: white">
+                                    <Fa icon={faXmark} />
+                                </div>
+                            </button>
+                        </div>
+                    </td>
                 </tr>
             {/each}
         {/if}
@@ -77,7 +91,18 @@
     // Use common style
     @use "../../style/common";
 
+    // Use button style
+    @use "../../style/button";
+
     .currentGrades  {
+        @include common.flexCenter;
+    }
+
+    .close {
+        @include button.quickButtonStyle($use-slim: true);
+    }
+
+    .centerButton {
         @include common.flexCenter;
     }
 

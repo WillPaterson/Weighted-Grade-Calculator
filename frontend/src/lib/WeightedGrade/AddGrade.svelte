@@ -129,27 +129,11 @@
     form div {float:left;width:33.3%;}
 
     .addGradeButton {
-        @include button.buttonStyle;
-        
-        &:hover {
-            @include button.buttonHover;
-        }
-
-        &:active {
-            @include button.buttonActive;
-        }
+        @include button.quickButtonStyle;
     }
 
     .submitGradeButton {
-        @include button.buttonStyleSmall(#006800);
-        
-        &:hover {
-            @include button.buttonHover(#005200);
-        }
-
-        &:active {
-            @include button.buttonActive;
-        }
+        @include button.quickButtonStyle( #006800, #005200, $width:30%);
     }
 
     input {

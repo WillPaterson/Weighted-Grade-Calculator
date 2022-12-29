@@ -9,14 +9,17 @@
     
 }
 
-@mixin buttonStyle {
-    @include buttonStyleTemplate;
-    width: 70%;
+@mixin buttonStyleSlim($background-color: #7e0a14) {
+    @include buttonStyleTemplate($background-color: $background-color);
+    padding: 5px;
+    font-size: 1rem;
+    width: 80%;
+    margin: 0;
 }
 
-@mixin buttonStyleSmall($background-color: #7e0a14) {
+@mixin buttonStyle($width: 70%, $background-color: #7e0a14) {
     @include buttonStyleTemplate($background-color: $background-color);
-    width: 30%;
+    width: $width;
 }
 
 /* Add grade button hover sink in */
@@ -30,4 +33,20 @@
 @mixin buttonActive {
     /* Shrink */
     transform: scale(0.95);
+}
+
+@mixin quickButtonStyle($standard-color: #7e0a14, $hover-color: #61030a, $width:70%, $use-slim: false) {
+    @if $use-slim {
+        @include buttonStyleSlim($background-color: $standard-color)
+    } @else {
+        @include buttonStyle($width: $width, $background-color: $standard-color);
+    }
+        
+    &:hover {
+        @include buttonHover($background-color: $hover-color);
+    }
+
+    &:active {
+        @include buttonActive;
+    }
 }
