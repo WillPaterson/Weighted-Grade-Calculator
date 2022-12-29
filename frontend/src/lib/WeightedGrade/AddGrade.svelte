@@ -3,6 +3,9 @@
     import Modal from "./Modal.svelte";
     let showModal = false;
 
+    let showError = false;
+    let errorMessage = "";
+
     // Type
     type AddGrade = (grade: number, totalPossible: number, weight: number) => void;
 
@@ -17,6 +20,19 @@
         console.log(grade);
         console.log(totalPossible);
         console.log(weight);
+        
+        showError = false;
+
+        if (totalPossible <= 0) {
+            showError = true;
+            errorMessage = "Total Possible must be greater than 0";
+            return;
+        } 
+        else if (weight <= 0) {
+            showError = true;
+            errorMessage = "Weight must be greater than 0";
+            return;
+        }
 
         addGrade(grade, totalPossible, weight);
     }
@@ -51,12 +67,19 @@
                     <div class="row">
                         <box>
                             <label for="weight">Weight</label>
-                            <input type="number" placeholder="Weight" bind:value={weight} />
+                            <input type="number" placeholder="Weight" min="1" bind:value={weight} />
                         </box>
                     </div>
                 </form>
-            </div>
 
+                {#if showError}
+                    <box class="error">
+                        {errorMessage}
+                    </box>
+                {/if}
+            </div>
+            
+            
             <div class="modalFooter" slot="footer">
                 <button class="submitGradeButton" on:click={handleAddGrade}>Add Grade</button>
             </div>
@@ -76,6 +99,10 @@
 
     box {
         @include common.box;
+    }
+
+    .error {
+        @include common.box(#790000);
     }
 
     .addGrade, input, label, .modalFooter {
