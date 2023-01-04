@@ -4,12 +4,17 @@
     import Info from "./WeightedGrade/Info.svelte";
     import RequiredGrades from "./WeightedGrade/RequiredGrades.svelte";
 
+    // Importing from native methods
+    import { LogPrint } from "../../wailsjs/runtime";
+
     // Type
     import type { IGrade } from "../types/grade";
 
     let grades: IGrade[] = [];
     let totalWeight: number = 0;
     let finalWeightedGrade: number = 0;
+
+    LogPrint("Hello from Svelte!");
 
     $: grades, totalWeight, finalWeightedGrade = calculateFinalWeightedGrade();
     function calculateFinalWeightedGrade() {
