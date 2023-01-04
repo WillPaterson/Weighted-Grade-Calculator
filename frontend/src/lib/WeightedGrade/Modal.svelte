@@ -1,10 +1,19 @@
 <script>
-	import { createEventDispatcher, onDestroy } from 'svelte';
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 	const close = () => dispatch('close');
 
 	let modal;
+
+	onMount(() => {
+		disableScrolling();
+		modal.focus();
+	});
+
+	onDestroy(() => {
+		enableScrolling();
+	});
 
 	const handle_keydown = e => {
 		if (e.key === 'Escape') {
@@ -27,6 +36,16 @@
 			e.preventDefault();
 		}
 	};
+
+	function disableScrolling(){
+		var x=window.scrollX;
+		var y=window.scrollY;
+		window.onscroll=function(){window.scrollTo(x, y);};
+	}
+
+	function enableScrolling(){
+		window.onscroll=function(){};
+	}
 </script>
 
 <svelte:window on:keydown={handle_keydown}/>
@@ -53,9 +72,9 @@
 	}
 
 	.modal {
-		position: absolute;
-		left: 50%;
-		top: 35%;
+		position: fixed;
+		left: 50vw;
+		top: 50vh;
 		width: calc(100vw - 4em);
 		max-width: 32em;
 		max-height: calc(100vh - 4em);
