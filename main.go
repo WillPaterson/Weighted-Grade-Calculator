@@ -17,11 +17,11 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:  "Weighted Grade Calculator",
-		Height: 900,
-		Width: 650,
-        MinHeight: 450,
-        MinWidth: 650,
+		Title:     "Weighted Grade Calculator",
+		Height:    900,
+		Width:     650,
+		MinHeight: 450,
+		MinWidth:  650,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
