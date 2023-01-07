@@ -44,10 +44,11 @@
         if (grade > totalPossible) {
             errorMessages.push("Grade Achieved must be less than or equal to Total Possible");
         }
-        if (calculateTotalWeight() + weight > 100) {
+        if (totalWeight + weight > 100) {
             errorMessages.push("Total weight cannot be greater than 100");
         }
         if (errorMessages.length <= 0) {
+            console.log("No errors");
             addGrade(grade, totalPossible, weight);
         }
     }

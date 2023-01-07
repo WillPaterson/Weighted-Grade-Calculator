@@ -6,20 +6,43 @@
 
     // Importing from native methods
     import { LogPrint } from "../../wailsjs/runtime";
-
-    // Type
-    import type { IGrade } from "../types/grade";
-
-    let grades: IGrade[] = [];
-    let totalWeight: number = 0;
-    let finalWeightedGrade: number = 0;
-
     LogPrint("Hello from Svelte!");
+    
+    // Type
+    import type { IWeightedClass } from "./types/weightedClass";
+
+    let weightedClass: IWeightedClass = {
+        classCode: "CSC 101",
+        gradeList: [
+            {
+                id: 0,
+                grade: 100,
+                totalPossible: 100,
+                percentage: 100,
+                weight: 0.5
+            },
+            {
+                id: 1,
+                grade: 100,
+                totalPossible: 100,
+                percentage: 100,
+                weight: 0.5
+            }
+        ],
+        totalWeight: 1,
+        finalWeightedGrade: 100
+    }
+
+
+    // Reactive
+    $: grades = weightedClass.gradeList;
+    $: totalWeight = weightedClass.totalWeight;
+    $: finalWeightedGrade = weightedClass.finalWeightedGrade;
 
     $: grades, totalWeight, finalWeightedGrade = calculateFinalWeightedGrade();
     function calculateFinalWeightedGrade() {
         let totalWeightedGrade = 0;
-        
+
         if (totalWeight === 0) {
             return 0;
         }

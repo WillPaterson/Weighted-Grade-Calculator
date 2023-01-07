@@ -5,11 +5,11 @@
     import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
     // Type
-    import type { IGrade } from "../../types/grade";
+    import type { IGrade } from "../types/grade";
 
     // Props
-    export let grades
-    export let totalWeight
+    export let grades: IGrade[]
+    export let totalWeight: number
 
     // Reactive
     $: amountOfGrades = grades.length;
@@ -29,15 +29,21 @@
     }
 
     function addGrade(grade: number, totalPossible: number, weight: number) {
+        let percentage = calculateGradePercentage(grade, totalPossible);
+
         let newGrade: IGrade = {
             id: grades.length,
             grade: grade,
             totalPossible: totalPossible,
-            percentage: calculateGradePercentage(grade, totalPossible),
+            percentage: percentage,
             weight: weight
         }
-        
+
         grades = [...grades, newGrade];
+    }
+
+    function removeGrade(id: number) {
+        grades = grades.filter(g => g.id !== id);
     }
 </script>
 
@@ -69,7 +75,7 @@
                     
                     <td>
                         <div class="centerButton">
-                            <button class="close" on:click={() => grades = grades.filter(g => g.id !== grade.id)}>
+                            <button class="close" on:click={() => removeGrade(grade.id)}>
                                 <div style="color: white">
                                     <Fa icon={faXmark} />
                                 </div>
@@ -82,7 +88,7 @@
     </table>
 </div>
 
-<AddGrade {addGrade} {calculateTotalWeight}/>
+<AddGrade {addGrade} {calculateTotalWeight} />
 
 <style lang="scss">
     // Use sectionTitle style

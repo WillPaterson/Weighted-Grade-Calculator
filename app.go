@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
 )
 
 // App struct
@@ -21,7 +22,28 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
+// Grade struct as a json object
+// id: number
+// grade: number
+// totalPossible: number
+// percentage: number
+// weight: number
+
+// Grade struct
+type Grade struct {
+	ID            int     `json:"id"`
+	Grade         float64 `json:"grade"`
+	TotalPossible float64 `json:"totalPossible"`
+	Percentage    float64 `json:"percentage"`
+	Weight        float64 `json:"weight"`
+}
+
+// Print AppData Local to the console
+func (a *App) PrintAppDataLocal() {
+	// Get os specific AppData Local path
+	appDataLocal, Error := os.UserCacheDir()
+	if Error != nil {
+		fmt.Println("Error:", Error)
+	}
+	fmt.Println("AppData Local:", appDataLocal)
 }
