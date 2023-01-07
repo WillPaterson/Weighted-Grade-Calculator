@@ -77,9 +77,9 @@
 </main>
 
 <!-- Pin version number from package.json to bottom -->
-<div class="flexToPageEnd">
+<section-small class="flexToPageEnd">
     <p>Version: {version}</p>
-</div>
+</section-small>
 
 <style>
     main {
@@ -112,5 +112,10 @@
 
         font-family: 'Rubik', sans-serif;
         color: #bdbab4;
+
+        margin-top: 0.5rem;
+        background-color: #383a3c;
+        border-radius: 5px;
+        padding-right: 1rem;
     }
 </style>
