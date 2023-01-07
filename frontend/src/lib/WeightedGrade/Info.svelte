@@ -1,12 +1,16 @@
 <script>
     // Props
+    export let classCode;
     export let totalWeight;
     export let finalWeightedGrade;
 
     // Calcuate remaining weight
     $: remainingWeight = 100 - totalWeight;
 
-    
+    // Class code changed
+    function printClassCode() {
+        console.log("Class Code: " + classCode);
+    }
 </script>
 
 <div class="container">
@@ -18,9 +22,9 @@
     <div class="infoContainer">
         <box>
             <div class="classCode">Class Code</div>
-            <input class="classCodeInput" type="text" placeholder="XXXX0000">
+            <input class="classCodeInput" type="text" placeholder="XXXX0000" bind:value={classCode} on:blur={printClassCode} />
         </box>
-        
+
         <box>
             <div class="finalGrade">Final Weighted Grade</div>
             <div class="fakeInput"> {finalWeightedGrade}% </div>

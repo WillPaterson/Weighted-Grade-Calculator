@@ -1,4 +1,7 @@
 <script lang="ts">
+    // Version
+    const version = __APP_VERSION__;
+
     // Components
     import CurrentGrades from "./WeightedGrade/CurrentGrades.svelte";
     import Info from "./WeightedGrade/Info.svelte";
@@ -16,28 +19,27 @@
         gradeList: [
             {
                 id: 0,
-                grade: 100,
+                grade: 50,
                 totalPossible: 100,
-                percentage: 100,
-                weight: 0.5
+                percentage: 50,
+                weight: 20
             },
             {
                 id: 1,
                 grade: 100,
                 totalPossible: 100,
                 percentage: 100,
-                weight: 0.5
+                weight: 10
             }
-        ],
-        totalWeight: 1,
-        finalWeightedGrade: 100
+        ]
     }
 
+    let totalWeight = 0;
+    let finalWeightedGrade = 0;
 
     // Reactive
+    $: classCode = weightedClass.classCode;
     $: grades = weightedClass.gradeList;
-    $: totalWeight = weightedClass.totalWeight;
-    $: finalWeightedGrade = weightedClass.finalWeightedGrade;
 
     $: grades, totalWeight, finalWeightedGrade = calculateFinalWeightedGrade();
     function calculateFinalWeightedGrade() {
@@ -59,7 +61,7 @@
 <main class="scrollable">
     <div class = "largeGrid">
         <section class="info">
-            <Info {totalWeight} {finalWeightedGrade}/>
+            <Info {classCode} {totalWeight} {finalWeightedGrade}/>
         </section>
     
         <section class="RequiredGrades">
@@ -73,6 +75,11 @@
         </section>
     </div>
 </main>
+
+<!-- Pin version number from package.json to bottom -->
+<div class="flexToPageEnd">
+    <p>Version: {version}</p>
+</div>
 
 <style>
     main {
@@ -97,5 +104,13 @@
         background-color: #383a3c;
         border-radius: 5px;
         padding: 1rem;
+    }
+
+    .flexToPageEnd {
+        display: flex;
+        justify-content: flex-end;
+
+        font-family: 'Rubik', sans-serif;
+        color: #bdbab4;
     }
 </style>
