@@ -13,7 +13,7 @@
     
     // Type
     import type { IWeightedClass } from "./types/weightedClass";
-
+    
     let weightedClass: IWeightedClass = {
         classCode: "CSC 101",
         gradeList: [
