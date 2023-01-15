@@ -31,8 +31,10 @@
     function addGrade(grade: number, totalPossible: number, weight: number) {
         let percentage = calculateGradePercentage(grade, totalPossible);
 
+        console.log("Percentage: " + percentage + "%");
+        
+
         let newGrade: IGrade = {
-            id: grades.length,
             grade: grade,
             totalPossible: totalPossible,
             percentage: percentage,
@@ -42,8 +44,8 @@
         grades = [...grades, newGrade];
     }
 
-    function removeGrade(id: number) {
-        grades = grades.filter(g => g.id !== id);
+    function removeGrade(index: number) {
+        grades = grades.filter((_, i) => i !== index);
     }
 </script>
 
@@ -64,9 +66,9 @@
                 <th>Weight</th>
                 <th>Remove?</th>
             </tr>
-            {#each grades as grade}
+            {#each grades as grade, index}
                 <tr>
-                    <td>{grade.id + 1}</td>
+                    <td>{index + 1}</td>
                     <td>{grade.grade}</td>
                     <td>{grade.totalPossible}</td>
                     <td>{grade.percentage}%</td>
@@ -75,7 +77,7 @@
                     
                     <td>
                         <div class="centerButton">
-                            <button class="close" on:click={() => removeGrade(grade.id)}>
+                            <button class="close" on:click={() => removeGrade(index)}>
                                 <div style="color: white">
                                     <Fa icon={faXmark} />
                                 </div>

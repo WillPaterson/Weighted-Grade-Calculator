@@ -1,6 +1,13 @@
-<script>
+<script lang="ts">
+    import type { IWeightedClass } from "../types/weightedClass";
+
+    // Type
+    type SaveWeightedClass = () => void;
+
     // Props
-    export let classCode;
+    export let saveWeightedClass: SaveWeightedClass;
+
+    export let classCode: string;
     export let totalWeight;
     export let finalWeightedGrade;
 
@@ -10,6 +17,9 @@
     // Class code changed
     function printClassCode() {
         console.log("Class Code: " + classCode);
+
+        // TODO save
+        saveWeightedClass();
     }
 </script>
 

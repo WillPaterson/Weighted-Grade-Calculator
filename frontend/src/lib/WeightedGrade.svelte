@@ -6,54 +6,55 @@
     import CurrentGrades from "./WeightedGrade/CurrentGrades.svelte";
     import Info from "./WeightedGrade/Info.svelte";
     import RequiredGrades from "./WeightedGrade/RequiredGrades.svelte";
-
-    // Importing from native methods
-    import { LogPrint } from "../../wailsjs/runtime";
-    LogPrint("Hello from Svelte!");
     
     // Type
     import type { IWeightedClass } from "./types/weightedClass";
+    import type { IGrade } from "./types/grade";
     
+    // Native Methods
+    import { main } from "../../wailsjs/go/models";
+    import { SaveWeightedClass } from "../../wailsjs/go/main/App";
+    import { LoadJSONFile } from "../../wailsjs/go/main/App";
+    
+
     let weightedClass: IWeightedClass = {
-        classCode: "CSC 101",
-        gradeList: [
-            {
-                id: 0,
-                grade: 50,
-                totalPossible: 100,
-                percentage: 50,
-                weight: 20
-            },
-            {
-                id: 1,
-                grade: 100,
-                totalPossible: 100,
-                percentage: 100,
-                weight: 10
-            }
-        ]
+        classCode: "",
+        gradeList: Array<IGrade>()
     }
+
+    LoadJSONFile().then((data) => {
+        console.log("Data: " + data);
+        weightedClass = JSON.parse(data);
+
+    });
 
     let totalWeight = 0;
     let finalWeightedGrade = 0;
 
-    // Reactive
-    $: classCode = weightedClass.classCode;
-    $: grades = weightedClass.gradeList;
-
-    $: grades, totalWeight, finalWeightedGrade = calculateFinalWeightedGrade();
+    $: weightedClass.gradeList, totalWeight, finalWeightedGrade = calculateFinalWeightedGrade();
     function calculateFinalWeightedGrade() {
         let totalWeightedGrade = 0;
 
         if (totalWeight === 0) {
             return 0;
         }
-
-        grades.forEach(grade => {
+    
+        weightedClass.gradeList.forEach(grade => {
             totalWeightedGrade += grade.percentage * grade.weight;
         });
 
         return Math.round(totalWeightedGrade / totalWeight);
+    }
+
+    $: weightedClass.gradeList;
+    function saveWeightedClass() {
+        // Create output weighted class
+        let outputWeightedClass = main.WeightedClass.createFrom(weightedClass);
+
+        // Print pretty json
+        console.log(JSON.stringify(weightedClass, null, 4));
+
+        SaveWeightedClass(outputWeightedClass);
     }
 
 </script>
@@ -61,7 +62,7 @@
 <main class="scrollable">
     <div class = "largeGrid">
         <section class="info">
-            <Info {classCode} {totalWeight} {finalWeightedGrade}/>
+            <Info bind:classCode={weightedClass.classCode} {totalWeight} {finalWeightedGrade} {saveWeightedClass}/>
         </section>
     
         <section class="RequiredGrades">
@@ -71,7 +72,7 @@
 
     <div class="largeGrid">
         <section class="CurrentGrades">
-            <CurrentGrades bind:grades bind:totalWeight/>
+            <CurrentGrades bind:grades={weightedClass.gradeList} bind:totalWeight/>
         </section>
     </div>
 </main>

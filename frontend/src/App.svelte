@@ -1,8 +1,12 @@
 <script>
     import WeightedGrade from './lib/WeightedGrade.svelte';
 
+    // Importing from native methods
+    import { LogPrint } from "../wailsjs/runtime";
+    LogPrint("Hello from Svelte!");
+
     // TODO enable this when the app is ready
-    let startUp = false
+    let startUp = true
 </script>
 
 <!-- Button that sets startUp to false -->
