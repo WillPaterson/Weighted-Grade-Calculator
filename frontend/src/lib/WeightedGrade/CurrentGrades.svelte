@@ -6,10 +6,12 @@
 
     // Type
     import type { IGrade } from "../types/grade";
+    type SaveWeightedClass = () => void;
 
     // Props
     export let grades: IGrade[]
     export let totalWeight: number
+    export let saveWeightedClass: SaveWeightedClass;
 
     // Reactive
     $: amountOfGrades = grades.length;
@@ -42,10 +44,14 @@
         }
 
         grades = [...grades, newGrade];
+
+        saveWeightedClass();
     }
 
     function removeGrade(index: number) {
         grades = grades.filter((_, i) => i !== index);
+
+        saveWeightedClass();
     }
 </script>
 
