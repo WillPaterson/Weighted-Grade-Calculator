@@ -46,7 +46,6 @@
         return Math.round(totalWeightedGrade / totalWeight);
     }
 
-    $: weightedClass.gradeList;
     function saveWeightedClass() {
         // Create output weighted class
         let outputWeightedClass = main.WeightedClass.createFrom(weightedClass);
@@ -72,7 +71,7 @@
 
     <div class="largeGrid">
         <section class="CurrentGrades">
-            <CurrentGrades bind:grades={weightedClass.gradeList} bind:totalWeight/>
+            <CurrentGrades bind:grades={weightedClass.gradeList} bind:totalWeight {saveWeightedClass}/>
         </section>
     </div>
 </main>
