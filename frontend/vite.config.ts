@@ -30,5 +30,9 @@ export default defineConfig({
     alias: {
       $root: path.resolve('./src')
     },
+  },
+  
+  define: {
+    __APP_VERSION__: JSON.stringify(require('./package.json').version),
   }
 });

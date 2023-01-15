@@ -5,11 +5,11 @@
     import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
     // Type
-    import type { IGrade } from "../../types/grade";
+    import type { IGrade } from "../types/grade";
 
     // Props
-    export let grades
-    export let totalWeight
+    export let grades: IGrade[]
+    export let totalWeight: number
 
     // Reactive
     $: amountOfGrades = grades.length;
@@ -29,15 +29,23 @@
     }
 
     function addGrade(grade: number, totalPossible: number, weight: number) {
+        let percentage = calculateGradePercentage(grade, totalPossible);
+
+        console.log("Percentage: " + percentage + "%");
+        
+
         let newGrade: IGrade = {
-            id: grades.length,
             grade: grade,
             totalPossible: totalPossible,
-            percentage: calculateGradePercentage(grade, totalPossible),
+            percentage: percentage,
             weight: weight
         }
-        
+
         grades = [...grades, newGrade];
+    }
+
+    function removeGrade(index: number) {
+        grades = grades.filter((_, i) => i !== index);
     }
 </script>
 
@@ -58,9 +66,9 @@
                 <th>Weight</th>
                 <th>Remove?</th>
             </tr>
-            {#each grades as grade}
+            {#each grades as grade, index}
                 <tr>
-                    <td>{grade.id + 1}</td>
+                    <td>{index + 1}</td>
                     <td>{grade.grade}</td>
                     <td>{grade.totalPossible}</td>
                     <td>{grade.percentage}%</td>
@@ -69,7 +77,7 @@
                     
                     <td>
                         <div class="centerButton">
-                            <button class="close" on:click={() => grades = grades.filter(g => g.id !== grade.id)}>
+                            <button class="close" on:click={() => removeGrade(index)}>
                                 <div style="color: white">
                                     <Fa icon={faXmark} />
                                 </div>
@@ -82,7 +90,7 @@
     </table>
 </div>
 
-<AddGrade {addGrade} {calculateTotalWeight}/>
+<AddGrade {addGrade} {calculateTotalWeight} />
 
 <style lang="scss">
     // Use sectionTitle style
