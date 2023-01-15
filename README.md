@@ -2,7 +2,11 @@
 
 ## About
 
-This is a simple weighted grade calculator. Built using Svelte and Wails. 
+This is a simple weighted grade calculator. Built using Svelte and Wails.
+  Main Screen              |  Add Grade
+:-------------------------:|:-------------------------:
+![Weighted Grade Calculator.exe](https://user-images.githubusercontent.com/50722844/212529793-2dd8a538-0fe6-4b9d-8b59-f763079cd847.png)   |  ![image](https://user-images.githubusercontent.com/50722844/212530029-2e44ad90-fe2e-48c9-a0a1-2adc39610f9c.png)
+
 
 ## Live Development
 
