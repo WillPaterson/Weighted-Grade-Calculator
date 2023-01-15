@@ -6,7 +6,7 @@
     LogPrint("Hello from Svelte!");
 
     // TODO enable this when the app is ready
-    let startUp = true
+    let startUp = false
 </script>
 
 <!-- Button that sets startUp to false -->
